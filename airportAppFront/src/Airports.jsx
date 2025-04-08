@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "./api";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const Airports = () => {
     const [airports, setAirports] = useState([]);
@@ -27,8 +28,14 @@ const Airports = () => {
         }
     }
 
+    // Navigate to update airport form
     const updateAirport = (airport) => {
         navigate(`/airports/update/${airport.id}`, { state: {airport} });
+    };
+
+    // Navigate to create airport form
+    const createAirport = () => {
+        navigate(`/airports/create`);
     };
 
     // Fetch airports on component mount
@@ -38,7 +45,16 @@ const Airports = () => {
 
     return (
         <>
+            <Button
+            variant="contained"
+            size="small"
+            onClick={() => createAirport()}
+            >
+                Create Airport
+            </Button>
+        
             <table>
+
                 <tbody>
                     <tr>
                         <th>Name</th>
@@ -57,24 +73,24 @@ const Airports = () => {
                             
                             <td>
                                 <button
-                                    onClick={() => updateAirport(airport)}
+                                    onClick={() => deleteAirport(airport.id)}
                                 >
-                                    Update
+                                    Delete
                                 </button>
                             </td>
                             
                             <td>
                                 <button
-                                    onClick={() => deleteAirport(airport.id)}
+                                    onClick={() => updateAirport(airport)}
                                 >
-                                    Delete
+                                    Update
                                 </button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-        </>
+            </>
     )
 }
 
