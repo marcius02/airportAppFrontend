@@ -1,4 +1,4 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import axios from "../middleware/api";
 import { useEffect, useState } from "react"
 
@@ -14,6 +14,17 @@ const Flights = () => {
             console.error("Error fetching flights.", error);
         }
     };
+
+    // Delete flight by id
+    const deleteFlight = async (id) => {
+        try {
+            await axios.delete(`/flights/${id}`);
+            setFlights(flights.filter((flight) => flight.id !== id));
+        } catch (error) {
+            console.error("Error deleting flight.", error);
+            alert("Failed to delete flight.")
+        }
+    }
 
     // Fetch flights on component mount
     useEffect(() => {
@@ -33,6 +44,7 @@ const Flights = () => {
                         <TableCell>Departure Time</TableCell>
                         <TableCell>Arrival Time</TableCell>
                         <TableCell>Status</TableCell>
+                        <TableCell>Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -42,6 +54,11 @@ const Flights = () => {
                             <TableCell>{flight.departureTime}</TableCell>
                             <TableCell>{flight.arrivalTime}</TableCell>
                             <TableCell>{flight.status}</TableCell>
+                            <TableCell>
+                            <Button variant="outlined" onClick={() => deleteFlight(flight.id)}>
+                                Delete
+                            </Button>
+                        </TableCell>
                         </TableRow>
                     ))} 
                 </TableBody>
