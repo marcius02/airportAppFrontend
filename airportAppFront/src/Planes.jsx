@@ -34,6 +34,11 @@ const Planes = () => {
         navigate(`/planes/update/${plane.id}`, { state: {plane}});
     };
 
+    // Navigate to create plane form
+    const createPlane = () => {
+        navigate(`/planes/create`);
+    }
+
     // Fetch planes on component mount 
     useEffect(() => {
         fetchPlanes();
@@ -44,6 +49,9 @@ const Planes = () => {
             <Typography variant="h4" component="div">
                 PLANES
             </Typography>
+            <Button variant="contained" onClick={createPlane} size="small">
+                Create plane
+            </Button>
             <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
                 {planes.map((plane) => (
                     <Box gridColumn={{ xs: "span 12", sm: "span 6", md: "span 4" }} key={plane.id}>

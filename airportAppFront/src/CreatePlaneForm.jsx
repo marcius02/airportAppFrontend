@@ -1,42 +1,40 @@
 import { Button, Paper, TextField, Typography } from "@mui/material";
 import axios from "./api";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
-
-const UpdatePlaneForm = () => {
-    const location = useLocation();
+const CreatePlaneForm = () => {
     const navigate = useNavigate();
-    const plane = location.state?.plane || {};
 
     const [formData, setFormData] = useState({
-        model: plane.model || "",
-        manufacturer: plane.manufacturer || "",
-        registrationNumber: plane.registrationNumber || "",
-        capacity: plane.capacity || "",
-        yearOfManufacture: plane.yearOfManufacture || "",
+        model:"",
+        manufacturer:"",
+        registrationNumber:"",
+        capacity:"",
+        yearOfManufacture:"",
     });
 
     const handleOnChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({...formData, [name]:value});
+        const  {name, value} = e.target;
+        setFormData({...formData, [name]: value});
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`planes/${plane.id}`, formData)
-            alert("Plane updated successfully!");
+            await axios.post("/planes", formData);
+            alert("Plane created successfully!");
             navigate("../planes");
-        } catch(error) {
-            console.error("Error updating plane:", error);
+        } catch (error) {
+            console.error("Error catching plane", error);
+            alert("Failed to create plane.");
         }
     };
-    
-    return (
-        <Paper style={{ padding: "20px", maxWidth: "500px"}}>
+
+    return(
+        <Paper sx={{ padding: "20px", maxWidth: "500px"}}>
             <Typography variant="h4" component="div">
-                Update Plane
+                Create New Plane
             </Typography>
             <form onSubmit={handleSubmit}>
                 <TextField 
@@ -87,4 +85,4 @@ const UpdatePlaneForm = () => {
     );
 }
 
-export default UpdatePlaneForm;
+export default CreatePlaneForm;
