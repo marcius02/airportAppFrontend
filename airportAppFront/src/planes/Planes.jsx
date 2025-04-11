@@ -1,5 +1,5 @@
 import { Box, Button, Card, CardContent, Paper, Table, Typography } from "@mui/material";
-import axios from "./api";
+import axios from "../middleware/api";
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "./api";
+import axios from "../middleware/api";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 

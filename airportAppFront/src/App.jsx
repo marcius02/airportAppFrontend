@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Sidebar from "./Sidebar";
-import Home from "./Home";
-import Airports from "./Airports";
-import Planes from "./Planes";
-import Flights from "./Flights";
-import UpdateAirportForm from "./UpdateAirportForm";
-import CreateAirportForm from "./CreateAirportForm";
-import UpdatePlaneForm from "./UpdatePlaneForm";
-import CreatePlaneForm from "./CreatePlaneForm";
+import Sidebar from "./layout/Sidebar";
+import Home from "./pages/Home";
+import Airports from "./airports/Airports";
+import Planes from "./planes/Planes";
+import Flights from "./flights/Flights";
+import UpdateAirportForm from "./airports/UpdateAirportForm";
+import CreateAirportForm from "./airports/CreateAirportForm";
+import UpdatePlaneForm from "./planes/UpdatePlaneForm";
+import CreatePlaneForm from "./planes/CreatePlaneForm";
 
 const App = () => {
   return (

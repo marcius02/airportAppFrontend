@@ -1,5 +1,5 @@
 import { Button, Paper, TextField } from "@mui/material";
-import axios from "./api";
+import axios from "../middleware/api";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

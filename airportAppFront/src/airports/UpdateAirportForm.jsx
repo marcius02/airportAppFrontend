@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "./api";
+import axios from "../middleware/api";
 import { Button, Paper, TextField } from "@mui/material";
 
 const UpdateAirportForm = () => {
