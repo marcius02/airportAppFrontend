@@ -1,10 +1,54 @@
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import axios from "../middleware/api";
+import { useEffect, useState } from "react"
 
+const Flights = () => {
+    const [flights, setFlights] = useState([]);
 
+    // Fetch all flights
+    const fetchFlights = async () => {
+        try {
+            const response = await axios.get("/flights");
+            setFlights(response.data);
+        } catch (error) {
+            console.error("Error fetching flights.", error);
+        }
+    };
 
-export default function Flights() {
+    // Fetch flights on component mount
+    useEffect(() => {
+        fetchFlights();
+    }, []);
+
     return(
-        <>
-            <h1>Flights</h1>
-        </>
-    );
+        <Paper sx={{ width: '100%'}}>
+        <TableContainer>
+            <Typography variant="h4">
+                FLIGHTS
+            </Typography>
+            <Table >
+                <TableHead>
+                    <TableRow>
+                        <TableCell style={{ minWidth: 170 }}>Flight number</TableCell>
+                        <TableCell>Departure Time</TableCell>
+                        <TableCell>Arrival Time</TableCell>
+                        <TableCell>Status</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {flights.map((flight) => (
+                        <TableRow key={flight.id}>
+                            <TableCell>{flight.flightNumber}</TableCell>
+                            <TableCell>{flight.departureTime}</TableCell>
+                            <TableCell>{flight.arrivalTime}</TableCell>
+                            <TableCell>{flight.status}</TableCell>
+                        </TableRow>
+                    ))} 
+                </TableBody>
+            </Table>
+        </TableContainer>
+        </Paper>
+    )
 }
+
+export default Flights;
