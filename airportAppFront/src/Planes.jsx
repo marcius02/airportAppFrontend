@@ -1,11 +1,13 @@
 import { Box, Button, Card, CardContent, Paper, Table, Typography } from "@mui/material";
 import axios from "./api";
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
 
 
 
 const Planes = () => {
     const [planes, setPlanes] = useState([]);
+    const navigate = useNavigate();
 
     // Fetch all planes
     const fetchPlanes = async () => {
@@ -25,6 +27,11 @@ const Planes = () => {
         } catch(error){
             console.error("Error deliting plane:", error);
         }
+    };
+
+    // Redirect to update form
+    const updatePlane = (plane) => {
+        navigate(`/planes/update/${plane.id}`, { state: {plane}});
     };
 
     // Fetch planes on component mount 
@@ -57,8 +64,11 @@ const Planes = () => {
                                 <Typography variant="body2" color="text.secondary">
                                     Year Of Manufacture: {plane.yearOfManufacture}
                                 </Typography>
-                                <Button variant="contained" onClick={() => deletePlane(plane.id)}>
+                                <Button variant="outlined" onClick={() => deletePlane(plane.id)}>
                                     Delete
+                                </Button>
+                                <Button variant="contained" onClick={() => updatePlane(plane)}>
+                                    Update
                                 </Button>
                             </CardContent>
                         </Card>
