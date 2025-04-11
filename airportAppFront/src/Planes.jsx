@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Paper, Table, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, Paper, Table, Typography } from "@mui/material";
 import axios from "./api";
 import { useEffect, useState } from "react"
 
@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 const Planes = () => {
     const [planes, setPlanes] = useState([]);
 
+    // Fetch all planes
     const fetchPlanes = async () => {
         try {
             const response = await axios.get("/planes");
@@ -16,6 +17,17 @@ const Planes = () => {
         }
     };
 
+    // Delete a plane by ID
+    const deletePlane = async (id) => {
+        try {
+            await axios.delete(`/planes/${id}`);
+            setPlanes(planes.filter((plane) => plane.id !== id));
+        } catch(error){
+            console.error("Error deliting plane:", error);
+        }
+    };
+
+    // Fetch planes on component mount 
     useEffect(() => {
         fetchPlanes();
     }, []);
@@ -45,6 +57,9 @@ const Planes = () => {
                                 <Typography variant="body2" color="text.secondary">
                                     Year Of Manufacture: {plane.yearOfManufacture}
                                 </Typography>
+                                <Button variant="contained" onClick={() => deletePlane(plane.id)}>
+                                    Delete
+                                </Button>
                             </CardContent>
                         </Card>
                     </Box>
